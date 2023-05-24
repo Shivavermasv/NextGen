@@ -1,14 +1,23 @@
 package com.example.mychat;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.cometchat.pro.core.AppSettings;
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+
+import java.security.AlgorithmParameterGenerator;
+
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +38,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity ( new Intent (MainActivity.this, com.example.mychat.signup.class) );
             }
         } );
+
+        // Replace with your App Region ("eu" or "us")
+        String region = "us";
+        AppSettings appSettings = new AppSettings.AppSettingsBuilder ()
+                .subscribePresenceForAllUsers ()
+                .setRegion ( region )
+                .autoEstablishSocketConnection ( true )
+                .build ();
+
+        // Replace with your App ID
     }
 }
