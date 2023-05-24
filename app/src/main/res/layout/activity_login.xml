@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/edittext_background"
+    android:background="@drawable/background_intro"
     tools:context=".MainActivity">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="LOGIN"
-        android:textColor="#df7154"
+        android:textColor="#F1E9E6"
         android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -53,6 +53,7 @@
             android:hint="Username"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#090808"
             android:textColorHint="#464646" />
 
         <EditText
@@ -68,6 +69,7 @@
             android:hint="Password"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
+            android:textColor="#090808"
             android:textColorHint="#464646" />
 
         <TextView
