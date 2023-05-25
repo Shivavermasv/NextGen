@@ -1,5 +1,6 @@
 package com.example.mychat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.WindowManager;
@@ -42,17 +43,19 @@ public class login extends AppCompatActivity {
                            CometChat.login (email, authKey,new CometChat.CallbackListener<User> () {
                                @Override
                                public void onSuccess(User user) {
+                                   startActivity ( new Intent (login.this, groupList.class) );
                                    Toast.makeText ( login.this, "Login Success...", Toast.LENGTH_SHORT ).show ();
+                                   finish ();
                                }
-
                                @Override
                                public void onError(CometChatException e) {
                                    Toast.makeText ( login.this, "Login Unsuccessfull", Toast.LENGTH_SHORT ).show ();
                                }
                            } );
                        }
-                       //startActivity ( login.this,  );
+                       startActivity ( new Intent (login.this, groupList.class) );
                        finish ();
+                       //startActivity ( login.this,  );
                    } ).addOnFailureListener ( e -> Toast.makeText ( login.this, "Login Failed..", Toast.LENGTH_SHORT ).show () );
                }
                else{

@@ -3,7 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-
+        maven { url 'https://maven.google.com' }
     }
 }
 dependencyResolutionManagement {
@@ -11,10 +11,15 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
         maven {
             url "https://dl.cloudsmith.io/public/cometchat/cometchat-pro-android/maven/"
         }
+        maven { url "https://jitpack.io" }
+
+
     }
 }
+
 rootProject.name = "MyChat"
-include ':app'
+include ':app', ':chatkit'

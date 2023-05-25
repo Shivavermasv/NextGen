@@ -49,6 +49,7 @@ public class launcher extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
+                    //startActivity ( new Intent (launcher.this, groupList.class) );
                     Intent intent = new Intent(launcher.this , MainActivity.class);
                     startActivity(intent);
                     finish();

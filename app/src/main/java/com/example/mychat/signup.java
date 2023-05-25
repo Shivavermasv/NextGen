@@ -1,5 +1,6 @@
 package com.example.mychat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.WindowManager;
@@ -33,6 +34,7 @@ public class signup extends AppCompatActivity {
                     if (password.length () >= 6 && password.equals ( repass.getText ().toString () )) {
                         auth.createUserWithEmailAndPassword ( Email, password ).addOnSuccessListener ( authResult -> {
                             Toast.makeText ( signup.this, "User created successfully ", Toast.LENGTH_SHORT ).show ();
+                            startActivity ( new Intent (signup.this, login.class) );
                             finish ();
                         } ).addOnFailureListener ( e -> Toast.makeText ( signup.this, "user creation failed !!", Toast.LENGTH_SHORT ).show () );
                     } else if (password.length () < 6) {
