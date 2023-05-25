@@ -7,20 +7,20 @@ android {
     namespace 'com.example.mychat'
     compileSdk 33
 
+
     defaultConfig {
         applicationId "com.example.mychat"
         minSdk 25
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resConfigs "us", "fr"
     }
 
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources = true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,6 +34,9 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    buildFeatures{
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -46,14 +49,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-config:21.4.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
-    testImplementation 'junit:junit:4.13.2'
     implementation 'com.cometchat:pro-android-chat-sdk:3.0.15'
-    implementation 'com.cometchat:pro-android-calls-sdk:3.0.0'
     implementation "com.airbnb.android:lottie:6.0.0"
     implementation "androidx.recyclerview:recyclerview:1.3.0"
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
     implementation "com.github.stfalcon-studio:Chatkit:0.4.1"
     implementation "com.google.android:flexbox:1.0.0"
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation 'com.qifan.typingIndicator:typingIndicator:0.1.0'
+
 
 }

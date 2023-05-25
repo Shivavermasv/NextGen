@@ -16,6 +16,7 @@ import com.cometchat.pro.exceptions.CometChatException;
 
 public class launcher extends AppCompatActivity {
 
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -24,7 +25,6 @@ public class launcher extends AppCompatActivity {
         String appID = "237720d53327b49d";
         String region = "us";
         AppSettings appSettings = new AppSettings.AppSettingsBuilder ()
-                .subscribePresenceForAllUsers ()
                 .setRegion ( region )
                 .autoEstablishSocketConnection ( true )
                 .build ();
@@ -33,11 +33,13 @@ public class launcher extends AppCompatActivity {
             public void onSuccess(String successMessage) {
                 Log.d(TAG, "Initialization completed successfully");
                 Toast.makeText ( launcher.this, "success....", Toast.LENGTH_SHORT ).show ();
+                intent = new Intent(launcher.this , login.class);
             }
 
             @Override
             public void onError(CometChatException e) {
                 Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+                Toast.makeText ( launcher.this, "init failed", Toast.LENGTH_SHORT ).show ();
             }
         });
         Thread thread = new Thread(){
@@ -50,7 +52,6 @@ public class launcher extends AppCompatActivity {
                 }
                 finally {
                     //startActivity ( new Intent (launcher.this, groupList.class) );
-                    Intent intent = new Intent(launcher.this , MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

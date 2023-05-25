@@ -3,6 +3,7 @@ package com.example.mychat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,41 +23,73 @@ public class login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_login);
+        setContentView ( R.layout.signin);
         this.getWindow().addFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN);
         final Button login = findViewById ( R.id.login_proceed );
-        final TextView forgot_pass = findViewById ( R.id.forgot_pass_field );
-        final EditText username= findViewById ( R.id.usename_field );
+        final EditText username= findViewById ( R.id.username_field );
         final EditText password= findViewById ( R.id.pass_field );
+        final TextView signup = findViewById ( R.id.textCreateNewAccount );
+        signup.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                startActivity ( new Intent (login.this, com.example.mychat.signup.class) );
+                finish ();
+            }
+        } );
         //login in user using come-to-chat API
         login.setOnClickListener ( view -> {
-            auth = FirebaseAuth.getInstance ();
-            String email = username.getText ().toString ();
-            String pass = password.getText ().toString ();
-            if(!email.isEmpty () && Patterns.EMAIL_ADDRESS.matcher ( email).matches (  ) ) {
+            //auth = FirebaseAuth.getInstance ();
+            String email = username.getText().toString ();
+            String pass = password.getText().toString ();
+            if(!email.isEmpty () || Patterns.EMAIL_ADDRESS.matcher ( email).matches (  ) ) {
                if(!pass.isEmpty () && pass.length ()>=6) {
-                   auth.signInWithEmailAndPassword ( email, pass ).addOnSuccessListener ( authResult -> {
-                       Toast.makeText ( login.this, "Login Successfull..", Toast.LENGTH_SHORT ).show ();
-                       if(CometChat.getLoggedInUser ()==null){
+                  // Toast.makeText ( login.this, "Login Successfull..", Toast.LENGTH_SHORT ).show ();
                            //String UID = "SUPERHERO1";
                            String authKey = "c467d5dd210f0048b95dae46b075ab87efc70f8b";
-                           CometChat.login (email, authKey,new CometChat.CallbackListener<User> () {
+                           CometChat.login (pass, authKey,new CometChat.CallbackListener<User> () {
                                @Override
                                public void onSuccess(User user) {
-                                   startActivity ( new Intent (login.this, groupList.class) );
-                                   Toast.makeText ( login.this, "Login Success...", Toast.LENGTH_SHORT ).show ();
-                                   finish ();
+                                   if(CometChat.getLoggedInUser ().getAvatar () !=null){
+                                       startActivity ( new Intent (login.this, userConversation.class) );
+                                       //startActivity ( new Intent (login.this, groupList.class) );
+                                       finish ();
+                                   }
+                                   else{
+                                       startActivity ( new Intent (login.this, avatar_uploader.class) );
+                                       finish ();
+                                   }
                                }
                                @Override
                                public void onError(CometChatException e) {
                                    Toast.makeText ( login.this, "Login Unsuccessfull", Toast.LENGTH_SHORT ).show ();
+                                   Toast.makeText ( login.this, email, Toast.LENGTH_SHORT ).show ();
                                }
                            } );
-                       }
-                       startActivity ( new Intent (login.this, groupList.class) );
-                       finish ();
-                       //startActivity ( login.this,  );
-                   } ).addOnFailureListener ( e -> Toast.makeText ( login.this, "Login Failed..", Toast.LENGTH_SHORT ).show () );
+
+                       //startActivity ( new Intent (login.this, groupList.class) );
+                       //finish ();
+//                   auth.signInWithEmailAndPassword ( email, pass ).addOnSuccessListener ( authResult -> {
+//                       Toast.makeText ( login.this, "Login Successfull..", Toast.LENGTH_SHORT ).show ();
+//                       if(CometChat.getLoggedInUser ()==null){
+//                           //String UID = "SUPERHERO1";
+//                           String authKey = "c467d5dd210f0048b95dae46b075ab87efc70f8b";
+//                           CometChat.login (email, authKey,new CometChat.CallbackListener<User> () {
+//                               @Override
+//                               public void onSuccess(User user) {
+//                                   startActivity ( new Intent (login.this, groupList.class) );
+//                                   Toast.makeText ( login.this, "Login Success...", Toast.LENGTH_SHORT ).show ();
+//                                   finish ();
+//                               }
+//                               @Override
+//                               public void onError(CometChatException e) {
+//                                   Toast.makeText ( login.this, "Login Unsuccessfull", Toast.LENGTH_SHORT ).show ();
+//                               }
+//                           } );
+//                       }
+//                       startActivity ( new Intent (login.this, groupList.class) );
+//                       finish ();
+//                       //startActivity ( login.this,  );
+//                   } ).addOnFailureListener ( e -> Toast.makeText ( login.this, "Login Failed..", Toast.LENGTH_SHORT ).show () );
                }
                else{
                    password.setError ( "Enter a valid password !!" );
