@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,9 +40,8 @@
             android:layout_height="34sp"
             android:layout_marginStart="@dimen/_150sdp"
             android:layout_marginTop="8dp"
-            android:padding="6dp"
+            android:padding="0dp"
             android:src="@drawable/chat_options_vec"
-            android:tint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,12 +49,11 @@
             android:id="@+id/logout"
             android:layout_width="30sp"
             android:layout_height="30sp"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_18sdp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/background_btn_intro1"
-            android:padding="6dp"
+            android:padding="4dp"
             android:src="@drawable/logout_vec"
-            android:tint="@color/black"
+            android:tint="@color/primary_text2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
@@ -75,11 +73,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/conversations"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary_dark"
             android:background="@drawable/background_btn_intro1"
-            android:textAlignment="center"
+            android:fontFamily="@font/phantom_rustty_font"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_35sdp"
             android:textSize="26sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -92,15 +92,17 @@
             android:clipToPadding="true"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:padding="20dp"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_15sdp"
             android:paddingTop="40dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <ProgressBar
             android:id="@+id/prgressBar"
-            android:outlineSpotShadowColor="@color/primary_dark"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:visibility="visible"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center" />
 
         <TextView

@@ -3,7 +3,10 @@ package com.example.mychat;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,12 +16,14 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
+import com.cometchat.pro.models.User;
+import com.example.mychat.oneononechat.oneoone_chat;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,38 +32,36 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class avatar_uploader extends AppCompatActivity {
-
-    private RoundedImageView user_image;
-    private TextView add_image;
-    private JSONObject body;
-    private TextView skip;
-    private Button upload;
-    private String image;
+public class user_profile extends AppCompatActivity {
+    private RoundedImageView profile_image;
+    private TextView user_id;
+    private TextView user_name;
+    private  String image;
+    private AppCompatImageView back_button;
+    private User user;
+    public static void start(Context context, User user){
+        Intent starter = new Intent (context, user_profile.class);
+        constants.User = user;
+        context.startActivity ( starter );
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_avatar_uploader );
-
-        user_image = findViewById ( R.id.layoutimage );
-        add_image = findViewById ( R.id.addImage );
-        upload = findViewById ( R.id.upload_avatar );
-        skip = findViewById ( R.id.skip );
-
-        onUserImageClicked();
-        onSkipClicked();
-    }
-
-    private void onUploadClicked(JSONObject body) {
-        if(body != null){
-            upload.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    uploadImage ( body );
-                }
-            } );
+        setContentView ( R.layout.activity_user_profile );
+        profile_image = findViewById ( R.id.layoutimage );
+        user_id = findViewById ( R.id.user_id );
+        user_name = findViewById ( R.id.user_name );
+        back_button = findViewById ( R.id.imageBack );
+        Intent intent = getIntent ();
+        if(intent!=null){
+            this.user = constants.User;
         }
+        getUserAvatar();
+        setUserName();
+        setUserAvatar();
+        SetUserId();
+        onBackClicked ();
     }
 
     private void uploadImage(JSONObject body) {
@@ -78,18 +81,25 @@ public class avatar_uploader extends AppCompatActivity {
                 });
     }
 
-    private void onSkipClicked() {
-        skip.setOnClickListener ( new View.OnClickListener () {
+    private void onBackClicked() {
+        back_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                startActivity ( new Intent (avatar_uploader.this, groupList.class) );
+                startActivity ( new Intent (user_profile.this, userConversation.class) );
                 finish ();
             }
         } );
     }
+    private void getUserAvatar() {
+        Picasso.get ().load ( user.getAvatar () ).into ( profile_image );
+    }
 
-    private void onUserImageClicked() {
-        user_image.setOnClickListener ( new View.OnClickListener () {
+    private void SetUserId() {
+        user_id.setText ( String.format ( "User ID :%s", user.getUid () ) );
+    }
+
+    private void setUserAvatar() {
+        profile_image.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
@@ -97,10 +107,11 @@ public class avatar_uploader extends AppCompatActivity {
                 pickimage.launch ( intent );
             }
         } );
-
     }
 
-    //image encoding
+    private void setUserName() {
+        user_name.setText ( String.format ( "User Name :%s", user.getName () ) );
+    }
     public String encodeImage(Bitmap bitmap) {
         Log.d ( "MYTAG","encoding started" );
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -108,9 +119,6 @@ public class avatar_uploader extends AppCompatActivity {
         byte[] byteArray = stream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
-
-
-    //method to extract uri of image
     private ActivityResultLauncher<Intent> pickimage = registerForActivityResult ( new ActivityResultContracts.StartActivityForResult (),
             result -> {
                 if(result.getResultCode () == RESULT_OK){
@@ -122,8 +130,7 @@ public class avatar_uploader extends AppCompatActivity {
                                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                 if (bitmap != null) {
                                     image = encodeImage ( bitmap );
-                                    user_image.setImageBitmap ( bitmap );
-                                    add_image.setVisibility ( View.INVISIBLE );
+                                    profile_image.setImageBitmap ( bitmap );
                                 } else {
                                     Log.d("MYTAG", "Failed to decode bitmap from input stream");
                                 }
@@ -134,10 +141,10 @@ public class avatar_uploader extends AppCompatActivity {
                             Log.d ( "MYTAG",e.getMessage () );
                             throw new RuntimeException ( e );
                         }
-                        body = new JSONObject ();
+                        JSONObject body = new JSONObject ();
                         try {
                             body.put("avatar", "data:image/jpeg;base64," + image);
-                            onUploadClicked (body);
+                            uploadImage (body);
 //                    body.put("avatar", "data:image/png;base64,"+encodedimage);
                         } catch (JSONException e) {
                             Log.d ( "MYTAG", e.getMessage ()  );
@@ -146,4 +153,5 @@ public class avatar_uploader extends AppCompatActivity {
                     }
                 }
             });
+
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -46,11 +47,12 @@ public class userActivity extends AppCompatActivity {
     }
 
     private void retriveUser() {
+        progressBar.setVisibility ( View.VISIBLE );
         UsersRequest usersRequest = new UsersRequest.UsersRequestBuilder().build();
         usersRequest.fetchNext ( new CometChat.CallbackListener<List<User>> () {
             @Override
             public void onSuccess(List<User> users) {
-                Toast.makeText ( userActivity.this, "user fetching started...", Toast.LENGTH_SHORT ).show ();
+                Log.d ("MYTAG","User fetching started ");
                 recyclerView.setLayoutManager ( new LinearLayoutManager ( userActivity.this ) );
                 userGroupAdapter adapter = new userGroupAdapter (  users , userActivity.this);
                 recyclerView.setAdapter ( adapter );

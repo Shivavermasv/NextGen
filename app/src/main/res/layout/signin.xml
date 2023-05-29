@@ -43,7 +43,7 @@
             android:layout_marginTop="@dimen/_40sdp"
             android:background="@drawable/background_input"
             android:textColorHint="@color/primary_text"
-            android:hint="@string/email"
+            android:hint="@string/user_name"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"

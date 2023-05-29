@@ -2,18 +2,28 @@ package com.example.mychat;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.core.MessagesRequest;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.BaseMessage;
+import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.TextMessage;
+import com.cometchat.pro.models.TypingIndicator;
+import com.cometchat.pro.models.User;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.qifan.library.ChatTypingIndicatorView;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -28,12 +38,20 @@ import models.messageWrapper;
 
 public class chatActivity extends AppCompatActivity {
     private String groupid;
+    private TextView groupName;
+    private AppCompatImageView back_button;
+    private RoundedImageView grp_icon;
     private MessagesListAdapter<messageWrapper> adapter;
+    private Group group;
+    private ChatTypingIndicatorView indicator;
+    private MessageInput inputview;
+    private TextView text_indicator;
 
-    public static void start(Context context, String group_id){
+    public static void start(Context context, String group_id, Group group){
         Intent starter = new Intent (context,chatActivity.class);
         starter.putExtra ( constants.GROUP_ID,group_id );
         context.startActivity ( starter );
+        constants.group = group;
     }
 
     @Override
@@ -43,12 +61,69 @@ public class chatActivity extends AppCompatActivity {
         Intent intent = getIntent ();
         if(intent != null){
             groupid = intent.getStringExtra ( constants.GROUP_ID );
+            this.group = constants.group;
         }
+        groupName = findViewById ( R.id.group_name );
+        back_button = findViewById ( R.id.imageBack );
+        grp_icon = findViewById ( R.id.group_layoutimage );
+        indicator = findViewById ( R.id.indicatorView );
+        text_indicator = findViewById ( R.id.sender_typing_name );
+
+        groupName.setText ( group.getName () );
+        Picasso.get ().load ( group.getIcon () ).into ( grp_icon );
+        onBackClicked ();
         initViews();
         addListner();
         fetchPreviousMessages();
+        setIndicator ();
+        ontyping ();
+    }
+    private void setIndicator(){
+        indicator.setVisibility ( View.INVISIBLE );
+        CometChat.addMessageListener("Listener 1", new CometChat.MessageListener() {
+            @Override
+            public void onTypingStarted(TypingIndicator typingIndicator) {
+                text_indicator.setText ( String.format ( "%s...", typingIndicator.getSender ().getName () ) );
+                text_indicator.setVisibility ( View.VISIBLE );
+                indicator.setVisibility ( View.VISIBLE );
+                Log.d("MYTAG", " Typing Started : " + typingIndicator.toString());
+            }
+
+            @Override
+            public void onTypingEnded(TypingIndicator typingIndicator) {
+                indicator.setVisibility ( View.GONE );
+                indicator.setVisibility ( View.GONE );
+                Log.d("MYTAG", " Typing Ended : " + typingIndicator.toString());
+            }
+
+        });
     }
 
+    private void ontyping(){
+        inputview.setTypingListener ( new MessageInput.TypingListener () {
+            @Override
+            public void onStartTyping() {
+                TypingIndicator typingIndicator = new TypingIndicator(groupid, CometChatConstants.RECEIVER_TYPE_USER);
+                CometChat.startTyping(typingIndicator);
+            }
+
+            @Override
+            public void onStopTyping() {
+                TypingIndicator typingIndicator = new TypingIndicator(groupid, CometChatConstants.RECEIVER_TYPE_USER);
+                CometChat.endTyping(typingIndicator);
+            }
+        } );
+    }
+
+    private void onBackClicked() {
+        back_button.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                startActivity ( new Intent (chatActivity.this, userConversation.class) );
+                finish ();
+            }
+        } );
+    }
     private void fetchPreviousMessages() {
         MessagesRequest messagesRequest = new MessagesRequest.MessagesRequestBuilder ().setGUID ( groupid ).build ();
         messagesRequest.fetchPrevious ( new CometChat.CallbackListener<List<BaseMessage>> () {
@@ -86,7 +161,7 @@ public class chatActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        MessageInput inputview = findViewById ( R.id.input );
+        inputview = findViewById ( R.id.input );
         MessagesList messagesList = findViewById ( R.id.mesageList );
         inputview.setInputListener ( new MessageInput.InputListener () {
             @Override

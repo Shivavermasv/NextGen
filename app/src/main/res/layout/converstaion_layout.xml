@@ -4,17 +4,36 @@
     android:id="@+id/conversation_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/background_btn_intro2"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <TextView
-        android:id="@+id/userConversationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="middle"
-        android:textColor="#090808"
-        android:textSize="20sp"
-        app:autoSizeTextType="uniform" />
+        <FrameLayout
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/reciver_layoutimage"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/background_image"
+                android:scaleType="centerCrop"
+                app:riv_oval="true" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/userConversationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/_18sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:fontFamily="@font/arkhip_font"
+            android:text="@string/select_user"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal" />
 
 </LinearLayout>

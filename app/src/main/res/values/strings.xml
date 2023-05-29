@@ -19,5 +19,17 @@
     <string name="upload">Upload</string>
     <string name="skip">Wanna skip this Time?</string>
     <string name="skip2">Skip</string>
-    <string name="conversations">Conversation</string>
+    <string name="conversations">MESSAGES</string>
+    <string name="new_group">New Group</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="my_profile">My Profile</string>
+    <string name="title">About</string>
+    <string name="app_version">v1.0.0</string>
+    <string name="app_description">Introducing MyChat: your all-in-one solution for effortless organization. Stay productive with intuitive features that help you manage tasks, set reminders, and stay on top of your schedule. Enjoy a clean and user-friendly interface, making it easy to stay organized and focused. Download MyApp today and experience productivity at your fingertips!</string>
+    <string name="devloped_by">Devloped By</string>
+    <string name="devloper_name">Shiva Verma</string>
+    <string name="user_id">User Id</string>
+    <string name="user_profile">User Profile</string>
+    <string name="about">About</string>
+    <string name="typer">TYPER</string>
 </resources>
