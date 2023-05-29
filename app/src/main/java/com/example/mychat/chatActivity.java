@@ -2,18 +2,25 @@ package com.example.mychat;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.core.MessagesRequest;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.BaseMessage;
+import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.TextMessage;
+import com.cometchat.pro.models.User;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -28,12 +35,17 @@ import models.messageWrapper;
 
 public class chatActivity extends AppCompatActivity {
     private String groupid;
+    private TextView groupName;
+    private AppCompatImageView back_button;
+    private RoundedImageView grp_icon;
     private MessagesListAdapter<messageWrapper> adapter;
+    private Group group;
 
-    public static void start(Context context, String group_id){
+    public static void start(Context context, String group_id, Group group){
         Intent starter = new Intent (context,chatActivity.class);
         starter.putExtra ( constants.GROUP_ID,group_id );
         context.startActivity ( starter );
+        constants.group = group;
     }
 
     @Override
@@ -43,12 +55,28 @@ public class chatActivity extends AppCompatActivity {
         Intent intent = getIntent ();
         if(intent != null){
             groupid = intent.getStringExtra ( constants.GROUP_ID );
+            this.group = constants.group;
         }
+        groupName = findViewById ( R.id.group_name );
+        back_button = findViewById ( R.id.imageBack );
+        grp_icon = findViewById ( R.id.group_layoutimage );
+        groupName.setText ( group.getName () );
+        Picasso.get ().load ( group.getIcon () ).into ( grp_icon );
+        onBackClicked ();
         initViews();
         addListner();
         fetchPreviousMessages();
     }
 
+    private void onBackClicked() {
+        back_button.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                startActivity ( new Intent (chatActivity.this, userConversation.class) );
+                finish ();
+            }
+        } );
+    }
     private void fetchPreviousMessages() {
         MessagesRequest messagesRequest = new MessagesRequest.MessagesRequestBuilder ().setGUID ( groupid ).build ();
         messagesRequest.fetchPrevious ( new CometChat.CallbackListener<List<BaseMessage>> () {

@@ -51,11 +51,14 @@ public class oneoone_chat extends AppCompatActivity {
     private MessageInput messageInput;
     private String user_id;
 
+    private User user;
+
     private MessagesList messagesList;
 
-    public static void start(Context context, String user_id){
+    public static void start(Context context, String user_id,User user){
         Intent starter = new Intent (context, oneoone_chat.class);
         starter.putExtra ( constants.USER_ID,user_id );
+        constants.User = user;
         context.startActivity ( starter );
     }
 
@@ -67,6 +70,7 @@ public class oneoone_chat extends AppCompatActivity {
         Intent intent = getIntent ();
         if(intent != null){
             this.user_id = intent.getStringExtra ( constants.USER_ID );
+            this.user = constants.User;
         }
 
         back_button = findViewById ( R.id.imageBack );
@@ -135,7 +139,7 @@ public class oneoone_chat extends AppCompatActivity {
     }
 
     private void setText(){
-        reciever_name.setText ( user_id );
+        reciever_name.setText ( user.getName () );
     }
 
     private void infoPressed(){

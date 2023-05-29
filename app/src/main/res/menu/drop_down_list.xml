@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_group"
+        android:title="@string/new_group"/>
+    <item android:id="@+id/change_avatar"
+        android:title="@string/change_avatar"/>
+    <item android:id="@+id/my_profile"
+        android:title="@string/my_profile"/>
+    <item android:id="@+id/about"
+        android:title="@string/title"/>
+</menu>

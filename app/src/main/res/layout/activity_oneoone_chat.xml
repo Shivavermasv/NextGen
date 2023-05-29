@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/input_background"
     tools:context=".oneononechat.oneoone_chat">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
+        android:background="@drawable/background_toolbar"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/sender_mesageList"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,10 +23,10 @@
             android:id="@+id/imageBack"
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/background_btn_intro1"
-            android:padding="6dp"
+            android:padding="4dp"
             android:src="@drawable/back"
             android:tint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
