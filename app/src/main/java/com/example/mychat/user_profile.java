@@ -1,11 +1,5 @@
 package com.example.mychat;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,13 +9,16 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
-import com.example.mychat.oneononechat.oneoone_chat;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -82,12 +79,9 @@ public class user_profile extends AppCompatActivity {
     }
 
     private void onBackClicked() {
-        back_button.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                startActivity ( new Intent (user_profile.this, userConversation.class) );
-                finish ();
-            }
+        back_button.setOnClickListener ( v -> {
+            startActivity ( new Intent (user_profile.this, userConversation.class) );
+            finish ();
         } );
     }
     private void getUserAvatar() {
@@ -99,13 +93,10 @@ public class user_profile extends AppCompatActivity {
     }
 
     private void setUserAvatar() {
-        profile_image.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
-                intent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                pickimage.launch ( intent );
-            }
+        profile_image.setOnClickListener ( v -> {
+            Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
+            intent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+            pickimage.launch ( intent );
         } );
     }
 
@@ -115,11 +106,11 @@ public class user_profile extends AppCompatActivity {
     public String encodeImage(Bitmap bitmap) {
         Log.d ( "MYTAG","encoding started" );
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] byteArray = stream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
-    private ActivityResultLauncher<Intent> pickimage = registerForActivityResult ( new ActivityResultContracts.StartActivityForResult (),
+    private final ActivityResultLauncher<Intent> pickimage = registerForActivityResult ( new ActivityResultContracts.StartActivityForResult (),
             result -> {
                 if(result.getResultCode () == RESULT_OK){
                     if(result.getData () != null){

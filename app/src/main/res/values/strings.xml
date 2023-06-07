@@ -17,7 +17,7 @@
     <string name="my_chat">My Chat</string>
     <string name="upload_avatar">UPLOAD YOUR AVATAR</string>
     <string name="upload">Upload</string>
-    <string name="skip">Wanna skip this Time?</string>
+    <string name="skip">Want to skip this Time?</string>
     <string name="skip2">Skip</string>
     <string name="conversations">MESSAGES</string>
     <string name="new_group">New Group</string>
@@ -32,4 +32,11 @@
     <string name="user_profile">User Profile</string>
     <string name="about">About</string>
     <string name="typer">TYPER</string>
+    <string name="last_msg">last message</string>
+    <string name="channel_description">For Notifications</string>
+    <string name="online">online</string>
+    <string name="last_seen">Last seen</string>
+    <string name="user_pressence">User Pressence</string>
+    <string name="chatgpt">chatgpt</string>
+    <string name="welcome_chatgpt">Welcome to MyChat\nchat with your GPT now</string>
 </resources>

@@ -28,7 +28,6 @@ public class signup extends AppCompatActivity {
     private EditText pass;
     private EditText repass;
     private TextView login;
-    private String authKey;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -41,7 +40,6 @@ public class signup extends AppCompatActivity {
         repass = findViewById ( R.id.repass );
         login = findViewById ( R.id.loginAccount );
         layout_image = findViewById ( R.id.layoutimage );
-        authKey = "c467d5dd210f0048b95dae46b075ab87efc70f8b";
 
         onLoginClicked();
         onSignUpClicked();
@@ -81,7 +79,7 @@ public class signup extends AppCompatActivity {
     }
 
     private void createUser(User user) {
-        CometChat.createUser(user, authKey, new CometChat.CallbackListener<User>() {
+        CometChat.createUser(user, AppKeys.COMETCHAT_AUTH_KEY, new CometChat.CallbackListener<User>() {
             @Override
             public void onSuccess(User user) {
                 Log.d ( "MYTAG","User Created Sucessfully" );
@@ -95,7 +93,7 @@ public class signup extends AppCompatActivity {
     }
 
     private void loginUser(String password) {
-        CometChat.login (password, authKey,new CometChat.CallbackListener<User> () {
+        CometChat.login (password, AppKeys.COMETCHAT_AUTH_KEY,new CometChat.CallbackListener<User> () {
             @Override
             public void onSuccess(User user) {
                 startActivity ( new Intent (signup.this, userConversation.class) );

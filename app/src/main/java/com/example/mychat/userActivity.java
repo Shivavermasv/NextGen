@@ -1,11 +1,13 @@
 package com.example.mychat;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,16 +47,16 @@ public class userActivity extends AppCompatActivity {
             }
         } );
     }
-
     private void retriveUser() {
         progressBar.setVisibility ( View.VISIBLE );
+
         UsersRequest usersRequest = new UsersRequest.UsersRequestBuilder().build();
         usersRequest.fetchNext ( new CometChat.CallbackListener<List<User>> () {
             @Override
             public void onSuccess(List<User> users) {
                 Log.d ("MYTAG","User fetching started ");
                 recyclerView.setLayoutManager ( new LinearLayoutManager ( userActivity.this ) );
-                userGroupAdapter adapter = new userGroupAdapter (  users , userActivity.this);
+                userListAdapter adapter = new userListAdapter (  users , userActivity.this);
                 recyclerView.setAdapter ( adapter );
                 recyclerView.addItemDecoration ( new DividerItemDecoration ( userActivity.this, LinearLayoutManager.VERTICAL ) );
                 progressBar.setVisibility ( View.INVISIBLE );

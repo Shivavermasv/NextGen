@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/input_background"
-    tools:context=".oneononechat.oneoone_chat">
+    tools:context=".chatgpt_conversation.oneoone_chatgpt"
+  >
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:background="@drawable/background_toolbar"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/sender_mesageList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/reciver_layoutimage"
+                android:id="@+id/chatgpt_avatar"
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:background="@color/blue"
@@ -55,7 +55,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/reciver_name"
+                android:id="@+id/chat_gpt_name"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_18sdp"
@@ -132,26 +132,40 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="1.0" />
     </LinearLayout>
-    <com.stfalcon.chatkit.messages.MessagesList
-        android:id="@+id/sender_mesageList"
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        app:textAutoLink="all"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_text"
+        android:textAlignment="center"
+        android:text="@string/welcome_chatgpt"
+        android:textSize="@dimen/_16sdp"
+        android:fontFamily="@font/arkhip_font"
+        />
+
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/mesageList"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/mycolor"
         android:hapticFeedbackEnabled="true"
-        android:background="@color/input_background"
-        app:incomingTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/typing_liner_layout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="0dp"
         app:incomingDefaultBubbleColor="@color/ivory"
         app:incomingDefaultBubblePressedColor="@color/ivory_dark"
         app:incomingDefaultBubbleSelectedColor="@color/gray"
+        app:incomingTextColor="@color/teal_200"
         app:incomingTextLinkColor="@color/green"
         app:incomingTextSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/sender_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
         app:outcomingDefaultBubbleColor="@color/green"
         app:outcomingDefaultBubblePressedColor="@color/green_dark"
         app:outcomingDefaultBubbleSelectedColor="@color/gray_dark_transparent"
         app:outcomingTextColor="@color/white"
         app:outcomingTextLinkColor="@color/green"
-        />
+        app:textAutoLink="all" />
 </androidx.constraintlayout.widget.ConstraintLayout>

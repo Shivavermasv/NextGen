@@ -2,13 +2,12 @@ package com.example.mychat;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
@@ -17,7 +16,6 @@ import com.cometchat.pro.exceptions.CometChatException;
 public class launcher extends AppCompatActivity {
 
     private Intent intent;
-    private String appID;
     private AppSettings appSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +41,16 @@ public class launcher extends AppCompatActivity {
         thread.start();
     }
     private void appSettinginit(){
-        appID = "237720d53327b49d";
-        String region = "us";
         appSettings = new AppSettings.AppSettingsBuilder ()
-                .setRegion ( region )
+                .subscribePresenceForAllUsers ()
+                .subscribePresenceForFriends ()
+                .setRegion ( AppKeys.APP_REGION )
                 .autoEstablishSocketConnection ( true )
                 .build ();
+
     }
     private void cometchatInit(){
-        CometChat.init(launcher.this, appID,appSettings, new CometChat.CallbackListener<String>() {
+        CometChat.init(launcher.this, AppKeys.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successMessage) {
                 Log.d(TAG, "Initialization completed successfully");

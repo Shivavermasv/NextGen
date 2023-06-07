@@ -1,28 +1,34 @@
 package com.example.mychat;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.models.Conversation;
 import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.User;
+import com.example.mychat.chatgpt_conversation.oneoone_chatgpt;
 import com.example.mychat.oneononechat.oneoone_chat;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class user_conversation_fetch_adapter extends RecyclerView.Adapter<user_conversation_fetch_adapter.MyViewholder> {
 
@@ -42,7 +48,11 @@ public class user_conversation_fetch_adapter extends RecyclerView.Adapter<user_c
 
     @Override
     public void onBindViewHolder(@NonNull user_conversation_fetch_adapter.MyViewholder holder, int position) {
-        holder.bind ( conversations.get ( position ) );
+        try {
+            holder.bind ( conversations.get ( position ) );
+        } catch (JSONException e) {
+            throw new RuntimeException ( e );
+        }
     }
 
     @Override
@@ -52,98 +62,76 @@ public class user_conversation_fetch_adapter extends RecyclerView.Adapter<user_c
     public class MyViewholder extends RecyclerView.ViewHolder{
         private final TextView user_converstaion_view ;
         private final RoundedImageView image;
+        private final AppCompatImageView user_status;
         private final LinearLayout layout;
+        private final TextView last_message;
 
         public MyViewholder(@NonNull View itemView) {
             super ( itemView );
+            user_status = itemView.findViewById ( R.id.user_status );
             user_converstaion_view = itemView.findViewById ( R.id.userConversationTextView );
             layout = itemView.findViewById ( R.id.conversation_layout );
             image = itemView.findViewById ( R.id.reciver_layoutimage );
+            last_message = itemView.findViewById ( R.id.last_msg );
         }
 
-        public void bind(Conversation conversation){
-            String user_data = conversation.getConversationWith ().toString ();
-            String redirect = null;
-            User user = null;
-            Group group = null;
-            if(user_data.charAt ( 0 ) == 'U'){
-                user = dataFetcher ( user_data );
-                redirect = user.getUid ();
-                user_converstaion_view.setText (user.getName () );
+        public void bind(Conversation conversation) throws JSONException {
+            if(conversation.getConversationType ().equals ( CometChatConstants.CONVERSATION_TYPE_USER )){
+                User user = (User)conversation.getConversationWith ();
+                user_converstaion_view.setText ( user.getName () );
                 if(user.getAvatar ()!=null){
                     Picasso.get ().load ( user.getAvatar () ).into ( image );
                 }
+                JSONObject jsonObject = (JSONObject)conversation.getLastMessage ().getRawMessage ().get ( "data" );
+                last_message.setText ( jsonObject.get ( "text" ).toString () );
+                setUserStatus(user);
             }
             else{
-                group = dataFetcherg ( user_data );
-                redirect = group.getGuid ();
-                user_converstaion_view.setText (group.getName () );
+                Group group = (Group) conversation.getConversationWith ();
+                user_converstaion_view.setText ( group.getName () );
                 if(group.getIcon ()!=null){
                     Picasso.get ().load ( group.getIcon () ).into ( image );
                 }
+                JSONObject jsonObject = (JSONObject)conversation.getLastMessage ().getRawMessage ().get ( "data" );
+                String last_msg_from = conversation.getLastMessage ().getSender ().getName ();
+                try{
+                    last_message.setText ( String.format ( "%s: %s", last_msg_from, jsonObject.get ( "text" ) ) );
+                }catch (JSONException e){
+                    Log.d ( "MYTAG",e.getMessage () );
+                }
+                user_status.setVisibility ( View.GONE );
             }
-            String finalRedirect = redirect;
-            User finalUser = user;
-            Group finalGroup = group;
-            layout.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    if(user_data.charAt ( 0 )=='U'){
-                        oneoone_chat.start ( context, finalRedirect, finalUser );
+
+            layout.setOnClickListener ( v -> {
+                if(conversation.getConversationType ().equals ( CometChatConstants.CONVERSATION_TYPE_USER )){
+                    User user = (User) conversation.getConversationWith ();
+                    if(user.getUid ().equals ( context.getString( R.string.chatgpt) )){
+                        oneoone_chatgpt.start (context,user);
                     }
                     else{
-                        chatActivity.start(context,finalRedirect, finalGroup );
+                        oneoone_chat.start ( context, user.getUid () , user );
                     }
+                }
+                else{
+                    Group grp = (Group) conversation.getConversationWith ();
+                    chatActivity.start(context,grp.getGuid (), grp );
                 }
             } );
         }
-        private User dataFetcher(String data){
-            Pattern pattern = Pattern.compile("'(.*?)'");
-            Matcher matcher = pattern.matcher(data);
-            User user = new User ();
-            if (matcher.find())
-            {
-                user.setUid ( matcher.group (1) );
-            }
-            data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-            if (matcher.find())
-            {
-               user.setName ( matcher.group (1) );
-            }
-            data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-                while(matcher.find () && !URLUtil.isValidUrl ( matcher.group (1) ))
-                {
-                    data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-                }
+        private void setUserStatus(User user){
+            Drawable vectorDrawable = user_status.getDrawable();
+            if(user.getStatus ().equals ( CometChatConstants.USER_STATUS_ONLINE )){
+                int color = ContextCompat.getColor(itemView.getContext(), R.color.green);
+                vectorDrawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
+                user_status.setImageDrawable(vectorDrawable);
 
-            if(!matcher.hitEnd () && URLUtil.isValidUrl ( matcher.group (1) )){
-                user.setAvatar ( matcher.group (1) );
             }
-            return user;
-        }
-        private Group dataFetcherg(String data){
-            Pattern pattern = Pattern.compile("'(.*?)'");
-            Matcher matcher = pattern.matcher(data);
-            Group grp = new Group ();
-            if (matcher.find())
-            {
-                grp.setGuid ( matcher.group (1) );
-            }
-            data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-            if (matcher.find())
-            {
-                grp.setName ( matcher.group (1) );
-            }
-            data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-            while(matcher.find () && !URLUtil.isValidUrl ( matcher.group (1) ))
-            {
-                data = data.replace( Objects.requireNonNull ( matcher.group ( 1 ) ),"");
-            }
+            else{
+                int color = ContextCompat.getColor(itemView.getContext(), R.color.red);
+                vectorDrawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
+                user_status.setImageDrawable(vectorDrawable);
 
-            if(!matcher.hitEnd () && URLUtil.isValidUrl ( matcher.group (1) )){
-                grp.setIcon ( matcher.group (1) );
             }
-            return grp;
         }
     }
 }
