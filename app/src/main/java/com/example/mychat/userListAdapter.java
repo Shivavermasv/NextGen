@@ -1,6 +1,8 @@
 package com.example.mychat;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cometchat.pro.models.User;
+import com.example.mychat.chatgpt_conversation.oneoone_chatgpt;
 import com.example.mychat.oneononechat.oneoone_chat;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 
-public class userGroupAdapter extends RecyclerView.Adapter<userGroupAdapter.MyViewHolder > {
+public class userListAdapter extends RecyclerView.Adapter<userListAdapter.MyViewHolder > {
 
     private final List<User> list;
     private  final Context context;
 
-    public userGroupAdapter(List<User> list, Context context) {
+    public userListAdapter(List<User> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -38,37 +42,43 @@ public class userGroupAdapter extends RecyclerView.Adapter<userGroupAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind (list.get ( position ));
+        User user = list.get ( position );
+        holder.bind (user);
+        holder.itemView.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if(user.getUid ().equals ( "chatgpt" )){
+                    oneoone_chatgpt.start ( context,user );
+                    ((userActivity)context).finish();
+                }
+                else{
+                    context.startActivity ( oneoone_chat.start ( context,user ));
+                    ((userActivity)context).finish();
+                }
+            }
+        } );
     }
 
     @Override
     public int getItemCount() {
         return list.size ();
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView user_name;
-        private LinearLayout linearLayout;
-        private TextView User_id;
-        private RoundedImageView imageView;
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        private final TextView user_name;
+        private final TextView User_id;
+        private final RoundedImageView imageView;
 
         public MyViewHolder(@NonNull View itemView) {
             super ( itemView );
             this.user_name = itemView.findViewById ( R.id.userNameTextView );
-            this.linearLayout = itemView.findViewById ( R.id.linear_user_layout );
+            LinearLayout linearLayout = itemView.findViewById ( R.id.linear_user_layout );
             this.User_id = itemView.findViewById ( R.id.usersidTextView );
             imageView = itemView.findViewById ( R.id.reciver_layoutimage );
         }
         public void bind(User user){
-            user_name.setText ( user.getName () );
+            user_name.setText ( user.getUid () );
             Picasso.get ().load ( user.getAvatar () ).into ( imageView );
-            User_id.setText ( user.getUid () );
-            linearLayout.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    final String user_id = user.getUid ();
-                    oneoone_chat.start ( context, user_id,user);
-                }
-            } );
+            User_id.setText ( user.getName () );
         }
     }
 }

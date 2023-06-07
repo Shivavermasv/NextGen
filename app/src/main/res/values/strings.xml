@@ -17,7 +17,7 @@
     <string name="my_chat">My Chat</string>
     <string name="upload_avatar">UPLOAD YOUR AVATAR</string>
     <string name="upload">Upload</string>
-    <string name="skip">Wanna skip this Time?</string>
+    <string name="skip">Want to skip this Time?</string>
     <string name="skip2">Skip</string>
     <string name="conversations">MESSAGES</string>
     <string name="new_group">New Group</string>
@@ -25,11 +25,30 @@
     <string name="my_profile">My Profile</string>
     <string name="title">About</string>
     <string name="app_version">v1.0.0</string>
-    <string name="app_description">Introducing MyChat: your all-in-one solution for effortless organization. Stay productive with intuitive features that help you manage tasks, set reminders, and stay on top of your schedule. Enjoy a clean and user-friendly interface, making it easy to stay organized and focused. Download MyApp today and experience productivity at your fingertips!</string>
+    <string name="app_description">Introducing MyChat: Our Android Chat Application is a user-friendly
+        messaging platform that allows you to connect and chat with your friends and family effortlessly.
+        With its intuitive interface, you can easily manage your contacts, initiate chat conversations,
+        and stay connected on the go. What sets our app apart is the integration of Chat GPT,
+        an advanced AI-powered chatbot that enhances your conversations with intelligent responses
+        and interactive engagement.
+        Experience seamless messaging, media sharing, and personalized features while
+        enjoying the convenience of built-in Chat GPT support.
+        Stay connected,
+        express yourself, and explore a new level of communication with our Android Chat Application.  </string>
     <string name="devloped_by">Devloped By</string>
     <string name="devloper_name">Shiva Verma</string>
     <string name="user_id">User Id</string>
     <string name="user_profile">User Profile</string>
     <string name="about">About</string>
     <string name="typer">TYPER</string>
+    <string name="last_msg">last message</string>
+    <string name="channel_description">For Notifications</string>
+    <string name="online">online</string>
+    <string name="last_seen">Last seen</string>
+    <string name="user_pressence">User Pressence</string>
+    <string name="chatgpt">chatgpt</string>
+    <string name="welcome_chatgpt">Welcome to MyChat\nchat with your GPT now</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="welcome_mychat">Welcome To MyChat</string>
+    <string name="by_shiva_verma">BY SHIVA VERMA</string>
 </resources>

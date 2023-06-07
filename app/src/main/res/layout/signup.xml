@@ -7,6 +7,7 @@
     android:background="@color/white"
     android:clipToPadding="false"
     android:overScrollMode="never"
+    android:id="@+id/scroll_view"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none">
 
@@ -29,7 +30,8 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp">
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/ripple">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/layoutimage"
@@ -110,17 +112,39 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/ripple"
+            android:fontFamily="@font/arkhip_font"
+            android:textSize="@dimen/_13sdp"
             android:fadingEdge="vertical"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:cornerRadius="@dimen/_8sdp" />
 
+        <RelativeLayout
+            android:id="@+id/progress_bar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:padding="10dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_circle"
+            android:elevation="8dp">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="visible"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:backgroundTint="@color/black"
+                android:layout_gravity="center" />
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
+            android:background="@drawable/ripple"
             android:text="@string/Already_have_an_Account"
             android:textColor="@color/primary"
             android:textStyle="bold" />
@@ -128,6 +152,7 @@
         <TextView
             android:id="@+id/loginAccount"
             android:layout_width="wrap_content"
+            android:background="@drawable/ripple"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
             android:text="@string/login"

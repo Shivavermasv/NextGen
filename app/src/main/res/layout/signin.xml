@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_btn_intro1"
+    android:id="@+id/scroll_view"
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
-    tools:context=".MainActivity">
+    tools:context=".login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,11 +72,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_proceed"
             android:layout_width="match_parent"
-            android:background="@drawable/background_input"
+            android:background="@drawable/ripple"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:fadingEdge="vertical"
+            android:fontFamily="@font/arkhip_font"
             android:text="@string/Sign_in"
+            android:textSize="@dimen/_12sdp"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:cornerRadius="@dimen/_8sdp" />
@@ -84,6 +87,7 @@
             android:id="@+id/textCreateNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
             android:layout_marginTop="@dimen/_30sdp"
             android:text="@string/craete_new_acc"
             android:textColor="@color/primary"
@@ -101,12 +105,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/ripple"
                 app:srcCompat="@drawable/twitter" />
 
             <ImageView
                 android:id="@+id/google_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/google" />
 
@@ -114,9 +120,26 @@
                 android:id="@+id/facebook_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/facebook" />
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/progress_bar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_circle"
+            android:elevation="8dp">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="visible"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center" />
+        </RelativeLayout>
 
     </LinearLayout>
 

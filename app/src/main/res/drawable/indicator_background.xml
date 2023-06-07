@@ -4,6 +4,6 @@
     <!-- It make the corner round -->
     <corners android:radius="20dp"/>
     <!-- Add color to the background -->
-    <solid android:color="@color/teal_200"/>
+    <solid android:color="@color/primary"/>
 
 </shape>

@@ -4,36 +4,61 @@
     android:id="@+id/conversation_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_btn_intro2"
+    android:background="@drawable/ripple"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="2dp">
 
         <FrameLayout
             android:layout_gravity="start"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/reciver_layoutimage"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                android:background="@drawable/background_image"
+                android:background="@drawable/ripple"
                 android:scaleType="centerCrop"
                 app:riv_oval="true" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/user_status"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_26sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:src="@drawable/sharp_circle_24"
+                android:scaleType="centerCrop"
+                app:riv_oval="true"
+                 />
         </FrameLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/userConversationTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/_18sdp"
             android:paddingEnd="@dimen/_8sdp"
-            android:paddingTop="@dimen/_8sdp"
+            android:paddingTop="@dimen/_2sdp"
             android:fontFamily="@font/arkhip_font"
             android:text="@string/select_user"
             android:textColor="@color/primary_dark"
             android:textSize="@dimen/_12sdp"
             android:textStyle="normal" />
+        <TextView
+            android:id="@+id/last_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/koldbyfree1"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

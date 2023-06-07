@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cometchat.pro.core.CometChat;
@@ -31,10 +32,10 @@ public class avatar_uploader extends AppCompatActivity {
 
     private RoundedImageView user_image;
     private TextView add_image;
-    private JSONObject body;
     private TextView skip;
     private Button upload;
     private String image;
+    private RelativeLayout progressLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,28 +46,33 @@ public class avatar_uploader extends AppCompatActivity {
         add_image = findViewById ( R.id.addImage );
         upload = findViewById ( R.id.upload_avatar );
         skip = findViewById ( R.id.skip );
-
+        progressLayout = findViewById ( R.id.progress_bar_layout );
         onUserImageClicked();
         onSkipClicked();
+    }
+    private void setProgressView(boolean var){
+        if(var){
+            progressLayout.setVisibility ( View.VISIBLE );
+        }
+        else{
+            progressLayout.setVisibility ( View.INVISIBLE );
+        }
     }
 
     private void onUploadClicked(JSONObject body) {
         if(body != null){
-            upload.setOnClickListener ( new View.OnClickListener () {
-                @Override
-                public void onClick(View v) {
-                    uploadImage ( body );
-                }
-            } );
+            upload.setOnClickListener ( v -> uploadImage ( body ) );
         }
     }
 
     private void uploadImage(JSONObject body) {
+        setProgressView ( true );
         CometChat.callExtension("avatar", "POST", "/v1/upload",body,
                 new CometChat.CallbackListener < JSONObject > () {
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
                         Log.d ( "MYTAG", "SUCCESS IMAGE UPLOAD" );
+                        setProgressView ( false );
                         finish ();
                     }
                     @Override
@@ -79,23 +85,17 @@ public class avatar_uploader extends AppCompatActivity {
     }
 
     private void onSkipClicked() {
-        skip.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                startActivity ( new Intent (avatar_uploader.this, groupList.class) );
-                finish ();
-            }
+        skip.setOnClickListener ( v -> {
+            startActivity ( new Intent (avatar_uploader.this, userConversation.class) );
+            finish ();
         } );
     }
 
     private void onUserImageClicked() {
-        user_image.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
-                intent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
-                pickimage.launch ( intent );
-            }
+        user_image.setOnClickListener ( v -> {
+            Intent intent = new Intent (Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
+            intent.addFlags ( Intent.FLAG_GRANT_READ_URI_PERMISSION );
+            pickimage.launch ( intent );
         } );
 
     }
@@ -104,14 +104,14 @@ public class avatar_uploader extends AppCompatActivity {
     public String encodeImage(Bitmap bitmap) {
         Log.d ( "MYTAG","encoding started" );
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] byteArray = stream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
 
 
     //method to extract uri of image
-    private ActivityResultLauncher<Intent> pickimage = registerForActivityResult ( new ActivityResultContracts.StartActivityForResult (),
+    private final ActivityResultLauncher<Intent> pickimage = registerForActivityResult ( new ActivityResultContracts.StartActivityForResult (),
             result -> {
                 if(result.getResultCode () == RESULT_OK){
                     if(result.getData () != null){
@@ -134,10 +134,10 @@ public class avatar_uploader extends AppCompatActivity {
                             Log.d ( "MYTAG",e.getMessage () );
                             throw new RuntimeException ( e );
                         }
-                        body = new JSONObject ();
+                        JSONObject body = new JSONObject ();
                         try {
                             body.put("avatar", "data:image/jpeg;base64," + image);
-                            onUploadClicked (body);
+                            onUploadClicked ( body );
 //                    body.put("avatar", "data:image/png;base64,"+encodedimage);
                         } catch (JSONException e) {
                             Log.d ( "MYTAG", e.getMessage ()  );

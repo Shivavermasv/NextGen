@@ -1,8 +1,10 @@
 package models;
 
+import androidx.annotation.Keep;
+
 import com.cometchat.pro.models.User;
 import com.stfalcon.chatkit.commons.models.IUser;
-
+@Keep
 public class UserWrapper implements IUser {
     private final User user;
 

@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_intro"
+    android:background="@color/primary"
     tools:context=".userActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/background_toolbar"
         app:layout_constraintBottom_toTopOf="@+id/framelayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,16 +22,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageBack"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@drawable/background_btn_intro1"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@drawable/ripple2"
             android:padding="4dp"
             android:src="@drawable/back"
-            android:tint="@color/black"
-             />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +40,7 @@
             android:layout_marginBottom="@dimen/_5sdp"
             android:fontFamily="@font/arkhip_font"
             android:text="@string/select_user"
-            android:textColor="@color/primary_text2"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -62,14 +60,25 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:padding="20dp"
+            android:padding="@dimen/_24sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+        <RelativeLayout
+            android:id="@+id/progress_bar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_circle"
+            android:elevation="8dp">
         <ProgressBar
             android:id="@+id/prgressBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:visibility="visible"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textErrorMessage"

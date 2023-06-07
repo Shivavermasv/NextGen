@@ -4,9 +4,9 @@
     android:id="@+id/linear_user_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_btn_intro2"
+    android:background="@drawable/ripple"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/_8sdp"
+    android:paddingTop="@dimen/_4sdp"
     android:layout_marginTop="@dimen/_5sdp">
 
     <FrameLayout
@@ -20,7 +20,6 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:background="@drawable/background_image"
-            android:paddingTop="@dimen/_5sdp"
             android:scaleType="centerCrop"
             app:riv_oval="true" />
     </FrameLayout>
@@ -49,6 +48,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/user_name"
             android:paddingStart="@dimen/_18sdp"
+            android:paddingEnd="@dimen/_8sdp"
             android:ellipsize="middle"
             android:textColor="@color/primary_dark"
             android:textSize="@dimen/_10sdp"

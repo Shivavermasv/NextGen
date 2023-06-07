@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/upload_avatar"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold" />
 
@@ -56,8 +56,10 @@
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_60sdp"
             android:textSize="@dimen/_15sdp"
-            android:background="@drawable/background_input"
+            app:strokeColor="@color/primary"
+            android:background="@drawable/ripple2"
             android:fadingEdge="vertical"
+            android:elevation="@dimen/_8sdp"
             android:text="@string/upload"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -82,6 +84,24 @@
             android:textColor="@color/primary"
             android:textStyle="bold" />
 
+        <RelativeLayout
+            android:id="@+id/progress_bar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_circle"
+            android:elevation="8dp">
+            <ProgressBar
+                android:id="@+id/prgressBar"
+                android:visibility="visible"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center" />
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

@@ -4,96 +4,106 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/background_intro"
-    >
+    android:animateLayoutChanges="true"
+    android:background="@color/primary">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/background_toolbar">
+        android:background="@color/primary">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageBack"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/background_btn_intro1"
-            android:padding="6dp"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/ripple2"
+            android:padding="4dp"
             android:src="@drawable/back"
-            android:tint="@color/black"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="@dimen/_31sdp"
+            android:layout_marginStart="@dimen/_90sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:text="@string/about"
-            android:layout_marginStart="@dimen/_60sdp"
-            android:textColor="@color/primary_text2"
-            android:fontFamily="@font/arkhip_font"
-            android:textSize="@dimen/_24ssp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/beckmanfont1"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="219dp"
-        android:layout_height="227dp"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center_horizontal"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/chaticon" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_content_bottom"
+        android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="219dp"
+            android:layout_height="227dp"
+            android:layout_marginTop="10dp"
+            app:lottie_colorFilter="@color/primary"
+            android:layout_gravity="center_horizontal"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/chaticon" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="26sp"
-        android:fontFamily="@font/phantom_rustty_font"
-        android:textColor="@color/blue"
-        android:gravity="center"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="26sp"
+            android:fontFamily="@font/sparkystonesregular"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="@string/app_version"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/app_version"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="8dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_description"
-        android:textStyle="bold"
-        android:padding="@dimen/_8sdp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:layout_marginTop="16dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:paddingTop="@dimen/_36sdp"
-        android:textStyle="bold"
-        android:text="@string/devloped_by"
-        android:textSize="18sp"
-        android:gravity="center"
-         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textStyle="normal"
-        android:text="@string/devloper_name"
-        android:textSize="18sp"
-        android:gravity="center"
-         />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_description"
+            android:fontFamily="@font/leosansfree1"
+            android:padding="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:paddingTop="@dimen/_8sdp"
+            android:textStyle="bold"
+            android:text="@string/devloped_by"
+            android:textSize="18sp"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:text="@string/devloper_name"
+            android:textSize="18sp"
+            android:gravity="center"
+            />
 
+    </LinearLayout>
 </LinearLayout>
+

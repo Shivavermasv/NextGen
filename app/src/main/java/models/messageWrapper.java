@@ -1,11 +1,14 @@
 package models;
 
+import androidx.annotation.Keep;
+
 import com.cometchat.pro.models.TextMessage;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
 
 import java.util.Date;
 
+@Keep
 public class messageWrapper implements IMessage {
 
     private final TextMessage textMessage;

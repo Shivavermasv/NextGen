@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".chatgpt_conversation.oneoone_chatgpt"
+            android:exported="false" />
+        <activity
             android:name=".user_profile"
             android:exported="false" />
         <activity
@@ -23,10 +29,21 @@
             android:exported="false" />
         <activity
             android:name=".userConversation"
-            android:exported="false" />
+            android:launchMode="singleTop"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="action_1" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".oneononechat.oneoone_chat"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="action_1" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".avatar_uploader"
             android:exported="false" />
@@ -40,9 +57,6 @@
 
         <activity
             android:name=".chatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".groupList"
             android:exported="false" />
         <activity
             android:name=".signup"
@@ -60,6 +74,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".MyFireBaseMessagingService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFireBaseMessagingService$NotificationActionService"
+            android:exported="false"
+            android:permission="TODO">
+            <intent-filter>
+                <action android:name="action_1" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".CallNotificationAction" />
     </application>
 
 </manifest>
