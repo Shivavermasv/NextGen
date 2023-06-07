@@ -2,13 +2,12 @@ package com.example.mychat;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
@@ -46,9 +45,12 @@ public class launcher extends AppCompatActivity {
         appID = "237720d53327b49d";
         String region = "us";
         appSettings = new AppSettings.AppSettingsBuilder ()
+                .subscribePresenceForAllUsers ()
+                .subscribePresenceForFriends ()
                 .setRegion ( region )
                 .autoEstablishSocketConnection ( true )
                 .build ();
+
     }
     private void cometchatInit(){
         CometChat.init(launcher.this, appID,appSettings, new CometChat.CallbackListener<String>() {

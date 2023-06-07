@@ -49,20 +49,42 @@
                 app:riv_oval="true" />
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/reciver_name"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_18sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:text="@string/select_user"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@id/imageBack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageBack" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reciver_name"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_18sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:text="@string/select_user"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@id/imageBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageBack" />
+            <TextView
+                android:id="@+id/user_pressence"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_18sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:text="@string/user_pressence"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@id/imageBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageBack" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/info"
