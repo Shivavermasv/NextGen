@@ -50,7 +50,7 @@ Once the application is running on your device or emulator, you can:
 ## Built With
 
 - [Retrofit](https://square.github.io/retrofit/) - For API calling.
-- Latest Android SDK - Including Android SDK version X.XX.
+- Latest Android SDK - Including Android SDK version 33.
 
 ## Screenshots
 
