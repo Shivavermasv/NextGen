@@ -62,7 +62,7 @@ Once the application is running on your device or emulator, you can:
 <p align="left">
   <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/ae0f60d7-0a4e-4487-92f6-79bcdb98d49f" alt="shivavermasv" width="220" />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/9831bcbe-9f14-4518-8d04-57cf0f342147" alt="shivavermasv" width="220" />
+  <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/84fc2d08-6d29-45e4-8434-4451120e9589" alt="shivavermasv" width="220" />
 </p>
 
 ## Contributing
