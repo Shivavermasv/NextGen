@@ -60,7 +60,7 @@ Once the application is running on your device or emulator, you can:
 ## Screenshots/Videos
 
 <p align="left">
-  <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/ae0f60d7-0a4e-4487-92f6-79bcdb98d49f" alt="shivavermasv" width="220" />
+  <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/b3444513-41f9-4543-a7e4-d10951e40978" alt="shivavermasv" width="220" />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/84fc2d08-6d29-45e4-8434-4451120e9589" alt="shivavermasv" width="220" />
 </p>
