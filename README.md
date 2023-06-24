@@ -57,7 +57,7 @@ Once the application is running on your device or emulator, you can:
 - [Retrofit](https://square.github.io/retrofit/) - For API calling.
 - Latest Android SDK - Including Android SDK version 33.
 
-## Screenshots/Videos
+## Demo
 
 <p align="left">
   <img src="https://github.com/Shivavermasv/My-chat-/assets/93510372/b3444513-41f9-4543-a7e4-d10951e40978" alt="shivavermasv" width="220" />
