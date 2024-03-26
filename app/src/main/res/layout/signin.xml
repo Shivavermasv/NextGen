@@ -10,7 +10,7 @@
     android:overScrollMode="never"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
-    tools:context=".login">
+    tools:context=".ui.login">
 
     <LinearLayout
         android:layout_width="match_parent"

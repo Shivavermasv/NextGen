@@ -1,8 +1,6 @@
-package com.example.mychat;
+package com.example.mychat.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cometchat.pro.models.User;
-import com.example.mychat.chatgpt_conversation.oneoone_chatgpt;
-import com.example.mychat.oneononechat.oneoone_chat;
+import com.example.mychat.R;
+import com.example.mychat.ui.chat_interface.gpt_chat_interface;
+import com.example.mychat.ui.chat_interface.one_on_one_chat_interface;
+import com.example.mychat.ui.contact_list;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 
-public class userListAdapter extends RecyclerView.Adapter<userListAdapter.MyViewHolder > {
+public class user_list_fetch_adapter extends RecyclerView.Adapter<user_list_fetch_adapter.MyViewHolder > {
 
     private final List<User> list;
     private  final Context context;
 
-    public userListAdapter(List<User> list, Context context) {
+    public user_list_fetch_adapter(List<User> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,7 +34,7 @@ public class userListAdapter extends RecyclerView.Adapter<userListAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from ( context ).inflate(R.layout.raw_user_layout, parent,false);
+        View view = LayoutInflater.from ( context ).inflate( R.layout.raw_user_layout, parent,false);
         MyViewHolder vh = new MyViewHolder ( view );
         return vh;
     }
@@ -48,12 +47,12 @@ public class userListAdapter extends RecyclerView.Adapter<userListAdapter.MyView
             @Override
             public void onClick(View v) {
                 if(user.getUid ().equals ( "chatgpt" )){
-                    oneoone_chatgpt.start ( context,user );
-                    ((userActivity)context).finish();
+                    context.startActivity ( gpt_chat_interface.start ( context,user ));
+                    ((contact_list)context).finish();
                 }
                 else{
-                    context.startActivity ( oneoone_chat.start ( context,user ));
-                    ((userActivity)context).finish();
+                    context.startActivity ( one_on_one_chat_interface.start ( context,user ));
+                    ((contact_list)context).finish();
                 }
             }
         } );

@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,12 +20,12 @@ import com.cometchat.pro.models.BaseMessage;
 import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.TextMessage;
 import com.cometchat.pro.models.TypingIndicator;
-import com.cometchat.pro.models.User;
+import com.example.mychat.R;
+import com.example.mychat.constants.constants;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.qifan.library.ChatTypingIndicatorView;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
@@ -34,9 +33,9 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.messageWrapper;
+import com.example.mychat.models.messageWrapper;
 
-public class chatActivity extends AppCompatActivity {
+public class chat_screen extends AppCompatActivity {
     private String groupid;
     private TextView groupName;
     private AppCompatImageView back_button;
@@ -48,7 +47,7 @@ public class chatActivity extends AppCompatActivity {
     private TextView text_indicator;
 
     public static void start(Context context, String group_id, Group group){
-        Intent starter = new Intent (context,chatActivity.class);
+        Intent starter = new Intent (context, chat_screen.class);
         starter.putExtra ( constants.GROUP_ID,group_id );
         context.startActivity ( starter );
         constants.group = group;
@@ -119,7 +118,7 @@ public class chatActivity extends AppCompatActivity {
         back_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                startActivity ( new Intent (chatActivity.this, userConversation.class) );
+                startActivity ( new Intent ( chat_screen.this, main_dashboard.class) );
                 finish ();
             }
         } );

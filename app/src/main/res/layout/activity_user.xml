@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
-    tools:context=".userActivity">
+    tools:context=".ui.contact_list">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
-    tools:context=".userConversation">
+    tools:context=".ui.main_dashboard">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/chat_options"

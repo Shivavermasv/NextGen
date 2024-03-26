@@ -1,4 +1,4 @@
-package Retrofit;
+package com.example.mychat.services.Retrofit;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

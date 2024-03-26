@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    tools:context=".oneononechat.oneoone_chat">
+    tools:context=".ui.chat_interface.one_on_one_chat_interface">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -88,7 +88,7 @@
             android:id="@+id/info"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/ripple2"
             android:src="@drawable/menu_button_chat"

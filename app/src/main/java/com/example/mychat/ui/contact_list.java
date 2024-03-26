@@ -1,13 +1,11 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,10 +17,12 @@ import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.core.UsersRequest;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
+import com.example.mychat.R;
+import com.example.mychat.adapter.user_list_fetch_adapter;
 
 import java.util.List;
 
-public class userActivity extends AppCompatActivity {
+public class contact_list extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -42,7 +42,6 @@ public class userActivity extends AppCompatActivity {
         back_button.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                startActivity ( new Intent (userActivity.this, userConversation.class) );
                 finish ();
             }
         } );
@@ -55,16 +54,16 @@ public class userActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<User> users) {
                 Log.d ("MYTAG","User fetching started ");
-                recyclerView.setLayoutManager ( new LinearLayoutManager ( userActivity.this ) );
-                userListAdapter adapter = new userListAdapter (  users , userActivity.this);
+                recyclerView.setLayoutManager ( new LinearLayoutManager ( contact_list.this ) );
+                user_list_fetch_adapter adapter = new user_list_fetch_adapter (  users , contact_list.this);
                 recyclerView.setAdapter ( adapter );
-                recyclerView.addItemDecoration ( new DividerItemDecoration ( userActivity.this, LinearLayoutManager.VERTICAL ) );
+                recyclerView.addItemDecoration ( new DividerItemDecoration ( contact_list.this, LinearLayoutManager.VERTICAL ) );
                 progressBar.setVisibility ( View.INVISIBLE );
             }
 
             @Override
             public void onError(CometChatException e) {
-                Toast.makeText ( userActivity.this, "SOME ERROR OCCURED", Toast.LENGTH_SHORT ).show ();
+                Toast.makeText ( contact_list.this, "SOME ERROR OCCURED", Toast.LENGTH_SHORT ).show ();
             }
         } );
     }

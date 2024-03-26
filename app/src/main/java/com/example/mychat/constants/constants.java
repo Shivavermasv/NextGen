@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.constants;
 
 import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.User;

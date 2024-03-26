@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
+import com.example.mychat.R;
+import com.example.mychat.constants.AppKeys;
+import com.example.mychat.constants.constants;
+import com.example.mychat.services.MyFireBaseMessagingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -71,7 +75,7 @@ public class login extends AppCompatActivity {
         if(FirebaseAuth.getInstance ().getCurrentUser ()!=null && CometChat.getLoggedInUser () != null ){
             Log.d("MYTAG","loged in user " + FirebaseAuth.getInstance ().getCurrentUser ());
             constants.logedInUser = CometChat.getLoggedInUser ();
-            startActivity ( new Intent (login.this, userConversation.class) );
+            startActivity ( new Intent (login.this, main_dashboard.class) );
             finish ();
         }
         else{
@@ -97,7 +101,7 @@ public class login extends AppCompatActivity {
         if(FirebaseAuth.getInstance ().getCurrentUser ()!=null && CometChat.getLoggedInUser () != null ){
             Log.d("MYTAG","loged in user " + FirebaseAuth.getInstance ().getCurrentUser ());
             constants.logedInUser = CometChat.getLoggedInUser ();
-            startActivity ( new Intent (login.this, userConversation.class) );
+            startActivity ( new Intent (login.this, main_dashboard.class) );
             finish ();
         }
         else{
@@ -160,7 +164,7 @@ public class login extends AppCompatActivity {
     }
     private void onSignUpClicked() {
         signup.setOnClickListener ( v -> {
-            startActivity ( new Intent (login.this, com.example.mychat.signup.class) );
+            startActivity ( new Intent (login.this, com.example.mychat.ui.signup.class) );
             finish ();
         } );
     }
@@ -245,7 +249,7 @@ public class login extends AppCompatActivity {
                             constants.token = token;
                             Log.d("MYTAG",s);
                             MyFireBaseMessagingService.subscribeUserNotification ( user.getUid () );
-                            startActivity ( new Intent (login.this, userConversation.class) );
+                            startActivity ( new Intent (login.this, main_dashboard.class) );
                             setProgressbarView ( false );
                             finish ();
                         }

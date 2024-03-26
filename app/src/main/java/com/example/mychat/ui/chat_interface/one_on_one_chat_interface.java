@@ -1,4 +1,4 @@
-package com.example.mychat.oneononechat;
+package com.example.mychat.ui.chat_interface;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -26,7 +26,7 @@ import com.cometchat.pro.models.TextMessage;
 import com.cometchat.pro.models.TypingIndicator;
 import com.cometchat.pro.models.User;
 import com.example.mychat.R;
-import com.example.mychat.constants;
+import com.example.mychat.constants.constants;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.qifan.library.ChatTypingIndicatorView;
 import com.squareup.picasso.Picasso;
@@ -41,9 +41,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import models.messageWrapper;
+import com.example.mychat.models.messageWrapper;
 
-public class oneoone_chat extends AppCompatActivity {
+public class one_on_one_chat_interface extends AppCompatActivity {
     private AppCompatImageView back_button;
     private RoundedImageView reciever_image;
     private TextView reciever_name;
@@ -59,7 +59,7 @@ public class oneoone_chat extends AppCompatActivity {
     private RoundedImageView chatIndiacatorAvatar;
 
     public static Intent start(Context context,User user){
-        Intent starter = new Intent(context, oneoone_chat.class);
+        Intent starter = new Intent(context, one_on_one_chat_interface.class);
         constants.User = user;
         return starter;
     }
@@ -110,7 +110,7 @@ public class oneoone_chat extends AppCompatActivity {
     private void setUserPressence() {
         if(user.getStatus ().equals ( CometChatConstants.USER_STATUS_ONLINE )){
             user_pressence.setText (R.string.online );
-            user_pressence.setTextColor ( ContextCompat.getColor(oneoone_chat.this, R.color.green)  );
+            user_pressence.setTextColor ( ContextCompat.getColor( one_on_one_chat_interface.this, R.color.green)  );
         }
         else{
             long lastActiveTimeMillis = user.getLastActiveAt();
@@ -119,7 +119,7 @@ public class oneoone_chat extends AppCompatActivity {
             String formattedTime = dateFormat.format(lastActiveDate);
             String text = "Last Seen " + formattedTime;
             user_pressence.setText ( text );
-            user_pressence.setTextColor ( ContextCompat.getColor(oneoone_chat.this, R.color.ivory) );
+            user_pressence.setTextColor ( ContextCompat.getColor( one_on_one_chat_interface.this, R.color.ivory) );
         }
     }
 
@@ -152,7 +152,7 @@ public class oneoone_chat extends AppCompatActivity {
     }
     private void onBack(){
         back_button.setOnClickListener ( v -> {
-           // startActivity ( new Intent (oneoone_chat.this, userConversation.class) );
+           // startActivity ( new Intent (one_on_one_chat_interface.this, main_dashboard.class) );
             finish ();
         } );
     }
@@ -162,11 +162,11 @@ public class oneoone_chat extends AppCompatActivity {
     }
 
     private void setText(){
-        reciever_name.setText ( user.getName () );
+        reciever_name.setText ( user.getUid () );
     }
 
     private void infoPressed(){
-        info.setOnClickListener ( v -> Toast.makeText ( oneoone_chat.this, "Features will bw added soon !!", Toast.LENGTH_SHORT ).show () );
+        info.setOnClickListener ( v -> Toast.makeText ( one_on_one_chat_interface.this, "Features will bw added soon !!", Toast.LENGTH_SHORT ).show () );
     }
 
     private void setIndicator(){

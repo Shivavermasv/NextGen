@@ -1,8 +1,7 @@
-package com.example.mychat.chatgpt_conversation;
+package com.example.mychat.ui.chat_interface;
 
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,13 +15,11 @@ import androidx.core.content.ContextCompat;
 
 import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.core.CometChat;
-import com.cometchat.pro.core.MessagesRequest;
 import com.cometchat.pro.exceptions.CometChatException;
-import com.cometchat.pro.models.BaseMessage;
 import com.cometchat.pro.models.TextMessage;
 import com.cometchat.pro.models.User;
 import com.example.mychat.R;
-import com.example.mychat.constants;
+import com.example.mychat.constants.constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,13 +40,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import Retrofit.ChatCompletionResponse;
-import Retrofit.RetrofitInstance;
-import models.messageWrapper;
+import com.example.mychat.services.Retrofit.ChatCompletionResponse;
+import com.example.mychat.services.Retrofit.RetrofitInstance;
+import com.example.mychat.models.messageWrapper;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.BufferedSink;
@@ -57,7 +53,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class oneoone_chatgpt extends AppCompatActivity {
+public class gpt_chat_interface extends AppCompatActivity {
     private TextView welcome_text;
     private AppCompatImageView back_button;
     private RoundedImageView gpt_avatar;
@@ -73,7 +69,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
     private String TAG = "MYTAG";
     public List<TextMessage> list;
     public static Intent start(Context context,User user){
-        Intent starter = new Intent(context, oneoone_chatgpt.class);
+        Intent starter = new Intent(context, gpt_chat_interface.class);
         constants.User = user;
         return starter;
     }
@@ -103,7 +99,6 @@ public class oneoone_chatgpt extends AppCompatActivity {
         setgptPressence ();
         setUserImage ();
         setText ();
-        //fetchPreviousMessages ();
         onBack ();
         infoPressed ();
         setIndicator ( false );
@@ -119,7 +114,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
             setIndicator ( true );
             return true;
         } );
-        ImageLoader imageLoader = (imageView, url, payload) -> Picasso.get ().load ( url).into ( gpt_avatar );
+        ImageLoader imageLoader = (gpt_avatar, url, payload) -> Picasso.get ().load ( url).into ( gpt_avatar );
         adapter = new MessagesListAdapter<> ( logedinuser.getUid (), imageLoader);
         messagesList.setAdapter ( adapter );
     }
@@ -137,7 +132,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
             jsonObject.put("messages",jsonArray);
 
         } catch (JSONException e) {
-            Log.d ( TAG,e.getMessage () );
+            Log.d ( TAG, Objects.requireNonNull ( e.getMessage () ) );
             throw new RuntimeException ( e );
         }
         RequestBody requestBody = new RequestBody() {
@@ -179,6 +174,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
         } );
     }
     private void fetchConverstaionFromFirebase(){
+        setIndicator ( true );
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("chatgpt_conv");
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
@@ -211,6 +207,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
                 }
                 adapter.addToEnd ( messageList,true );
                 messagesList.smoothScrollToPosition (0);
+                setIndicator ( false );
             }
 
             @Override
@@ -233,7 +230,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
     }
     private void setgptPressence(){
         gpt_pressence.setText ( R.string.online );
-        gpt_pressence.setTextColor ( ContextCompat.getColor(oneoone_chatgpt.this, R.color.green)  );
+        gpt_pressence.setTextColor ( ContextCompat.getColor( gpt_chat_interface.this, R.color.green)  );
     }
     private void onBack(){
         back_button.setOnClickListener ( v -> {
@@ -249,7 +246,7 @@ public class oneoone_chatgpt extends AppCompatActivity {
     }
 
     private void infoPressed(){
-        info.setOnClickListener ( v -> Toast.makeText ( oneoone_chatgpt.this, "Features will bw added soon !!", Toast.LENGTH_SHORT ).show () );
+        info.setOnClickListener ( v -> Toast.makeText ( gpt_chat_interface.this, "Features will bw added soon !!", Toast.LENGTH_SHORT ).show () );
     }
 
     private void setWelcomeTextViewVisibity(boolean var) {

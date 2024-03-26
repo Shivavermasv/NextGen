@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
 import static android.content.ContentValues.TAG;
 
@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cometchat.pro.core.AppSettings;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
+import com.example.mychat.R;
+import com.example.mychat.constants.AppKeys;
 
-public class launcher extends AppCompatActivity {
+public class splash_screen extends AppCompatActivity {
 
     private Intent intent;
     private AppSettings appSettings;
@@ -50,11 +52,11 @@ public class launcher extends AppCompatActivity {
 
     }
     private void cometchatInit(){
-        CometChat.init(launcher.this, AppKeys.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
+        CometChat.init( splash_screen.this, AppKeys.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successMessage) {
                 Log.d(TAG, "Initialization completed successfully");
-                intent = new Intent(launcher.this , login.class);
+                intent = new Intent( splash_screen.this , login.class);
             }
 
             @Override

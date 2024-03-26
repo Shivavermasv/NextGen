@@ -1,4 +1,4 @@
-package models;
+package com.example.mychat.models;
 
 import androidx.annotation.Keep;
 

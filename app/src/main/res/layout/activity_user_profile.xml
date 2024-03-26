@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primary"
-    tools:context=".user_profile">
+    tools:context=".ui.user_profile">
 
     <LinearLayout
         android:layout_width="match_parent"

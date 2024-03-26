@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
+import com.example.mychat.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
@@ -86,7 +87,7 @@ public class avatar_uploader extends AppCompatActivity {
 
     private void onSkipClicked() {
         skip.setOnClickListener ( v -> {
-            startActivity ( new Intent (avatar_uploader.this, userConversation.class) );
+            startActivity ( new Intent (avatar_uploader.this, main_dashboard.class) );
             finish ();
         } );
     }

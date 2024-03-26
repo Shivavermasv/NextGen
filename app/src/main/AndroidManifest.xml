@@ -19,16 +19,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".chatgpt_conversation.oneoone_chatgpt"
+            android:name=".ui.chat_interface.gpt_chat_interface"
             android:exported="false" />
         <activity
-            android:name=".user_profile"
+            android:name=".ui.user_profile"
             android:exported="false" />
         <activity
-            android:name=".about"
+            android:name=".ui.about"
             android:exported="false" />
         <activity
-            android:name=".userConversation"
+            android:name=".ui.main_dashboard"
             android:launchMode="singleTop"
             android:exported="false" >
             <intent-filter>
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".oneononechat.oneoone_chat"
+            android:name=".ui.chat_interface.one_on_one_chat_interface"
             android:exported="false">
             <intent-filter>
                 <action android:name="action_1" />
@@ -45,10 +45,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".avatar_uploader"
+            android:name=".ui.avatar_uploader"
             android:exported="false" />
         <activity
-            android:name=".userActivity"
+            android:name=".ui.contact_list"
             android:exported="false" />
 
         <meta-data
@@ -56,17 +56,17 @@
             android:resource="@xml/network_security_config" />
 
         <activity
-            android:name=".chatActivity"
+            android:name=".ui.chat_screen"
             android:exported="false" />
         <activity
-            android:name=".signup"
+            android:name=".ui.signup"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".login"
+            android:name=".ui.login"
             android:exported="false" />
         <activity
-            android:name=".launcher"
+            android:name=".ui.splash_screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,7 +76,7 @@
         </activity>
 
         <service
-            android:name=".MyFireBaseMessagingService"
+            android:name=".services.MyFireBaseMessagingService"
             android:enabled="true"
             android:exported="true"
             android:permission="TODO">
@@ -84,7 +84,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFireBaseMessagingService$NotificationActionService"
+        <service android:name=".services.MyFireBaseMessagingService$NotificationActionService"
             android:exported="false"
             android:permission="TODO">
             <intent-filter>
@@ -93,7 +93,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".CallNotificationAction" />
+        <receiver android:name=".services.NotificationAction" />
     </application>
 
 </manifest>

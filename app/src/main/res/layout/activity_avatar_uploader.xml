@@ -9,7 +9,7 @@
     android:overScrollMode="never"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
-    tools:context=".avatar_uploader">
+    tools:context=".ui.avatar_uploader">
 
     <LinearLayout
         android:layout_width="match_parent"

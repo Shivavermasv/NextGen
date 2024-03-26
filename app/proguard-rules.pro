@@ -83,7 +83,7 @@
 
 # Add any classes the interact with gson
 # the following line is for illustration purposes
--keep class com.example.mychat.chatgpt_conversation.oneoone_chatgpt
+-keep class com.example.mychat.ui.chat_interface.gpt_chat_interface
 
 # Hide warnings about references to newer platforms in the library
 -dontwarn android.support.v7.**

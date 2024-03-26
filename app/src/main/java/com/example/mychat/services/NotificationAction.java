@@ -1,10 +1,12 @@
-package com.example.mychat;
+package com.example.mychat.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class CallNotificationAction extends BroadcastReceiver {
+import com.example.mychat.constants.constants;
+
+public class NotificationAction extends BroadcastReceiver {
     private static final String ACTION_ANSWER_CALL = "Answers";
     private static final String ACTION_DECLINE_CALL = "Decline";
 
@@ -25,7 +27,7 @@ public class CallNotificationAction extends BroadcastReceiver {
 
     private void handleAnswerCall(Context context, Intent intent) {
         // Retrieve session ID from intent
-        String sessionId = intent.getStringExtra(constants.StringContract);
+        String sessionId = intent.getStringExtra( constants.StringContract);
 
         // Perform necessary actions to answer the call
         // ...

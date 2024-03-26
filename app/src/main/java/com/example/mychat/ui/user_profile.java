@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.cometchat.pro.core.CometChat;
 import com.cometchat.pro.exceptions.CometChatException;
 import com.cometchat.pro.models.User;
+import com.example.mychat.R;
+import com.example.mychat.constants.constants;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -80,7 +82,7 @@ public class user_profile extends AppCompatActivity {
 
     private void onBackClicked() {
         back_button.setOnClickListener ( v -> {
-            startActivity ( new Intent (user_profile.this, userConversation.class) );
+            startActivity ( new Intent (user_profile.this, main_dashboard.class) );
             finish ();
         } );
     }

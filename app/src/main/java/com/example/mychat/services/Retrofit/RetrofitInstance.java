@@ -1,8 +1,8 @@
-package Retrofit;
+package com.example.mychat.services.Retrofit;
 
 import androidx.annotation.NonNull;
 
-import com.example.mychat.AppKeys;
+import com.example.mychat.constants.AppKeys;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

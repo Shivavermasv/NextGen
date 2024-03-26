@@ -1,4 +1,4 @@
-package Retrofit;
+package com.example.mychat.services.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,7 +1,5 @@
-package com.example.mychat;
+package com.example.mychat.services;
 
-
-import static androidx.core.app.ActivityCompat.requestPermissions;
 
 import android.Manifest;
 import android.app.IntentService;
@@ -19,7 +17,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -29,7 +26,10 @@ import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.core.Call;
 import com.cometchat.pro.helpers.CometChatHelper;
 import com.cometchat.pro.models.BaseMessage;
-import com.example.mychat.oneononechat.oneoone_chat;
+import com.example.mychat.R;
+import com.example.mychat.constants.AppKeys;
+import com.example.mychat.constants.constants;
+import com.example.mychat.ui.main_dashboard;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -59,7 +59,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.app_name);
+            CharSequence name = getString( R.string.app_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("2", name, importance);
@@ -73,7 +73,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
     }
 
     public static void subscribeUserNotification(String UID) {
-        FirebaseMessaging.getInstance().subscribeToTopic(AppKeys.APP_ID + "_"+ CometChatConstants.RECEIVER_TYPE_USER +"_" +
+        FirebaseMessaging.getInstance().subscribeToTopic( AppKeys.APP_ID + "_"+ CometChatConstants.RECEIVER_TYPE_USER +"_" +
                 UID).addOnSuccessListener( aVoid -> Log.e(TAG, UID+ " Subscribed Success") );
     }
     @Override
@@ -123,9 +123,9 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
             createNotificationChannel ();
             int m = (int) ((new Date ().getTime ()));
             String USER_ID = baseMessage.getSender ().getUid ();
-//            Intent action1Intent = oneoone_chat.start ( this,baseMessage.getSender () )
+//            Intent action1Intent = one_on_one_chat_interface.start ( this,baseMessage.getSender () )
 //                    .setAction(ACTION_1);
-            Intent action1Intent = new Intent(this, userConversation.class).setAction(ACTION_1);
+            Intent action1Intent = new Intent(this, main_dashboard.class).setAction(ACTION_1);
 
             PendingIntent action1PendingIntent = PendingIntent.getService ( this, 0,
                     action1Intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE );
@@ -190,7 +190,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
 
     }
     private Intent getCallIntent(String title){
-        Intent callIntent = new Intent(getApplicationContext(), CallNotificationAction.class);
+        Intent callIntent = new Intent(getApplicationContext(), NotificationAction.class);
         callIntent.putExtra(constants.StringContract,call.getSessionId());
         callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callIntent.setAction(title);

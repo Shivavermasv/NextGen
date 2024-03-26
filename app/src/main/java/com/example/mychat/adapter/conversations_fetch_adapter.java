@@ -1,4 +1,4 @@
-package com.example.mychat;
+package com.example.mychat.adapter;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -20,8 +20,10 @@ import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.models.Conversation;
 import com.cometchat.pro.models.Group;
 import com.cometchat.pro.models.User;
-import com.example.mychat.chatgpt_conversation.oneoone_chatgpt;
-import com.example.mychat.oneononechat.oneoone_chat;
+import com.example.mychat.R;
+import com.example.mychat.ui.chat_screen;
+import com.example.mychat.ui.chat_interface.gpt_chat_interface;
+import com.example.mychat.ui.chat_interface.one_on_one_chat_interface;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -30,24 +32,24 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class user_conversation_fetch_adapter extends RecyclerView.Adapter<user_conversation_fetch_adapter.MyViewholder> {
+public class conversations_fetch_adapter extends RecyclerView.Adapter<conversations_fetch_adapter.MyViewholder> {
 
     private final List<Conversation> conversations;
     private final Context context;
-    public user_conversation_fetch_adapter(List<Conversation> conversations, Context context) {
+    public conversations_fetch_adapter(List<Conversation> conversations, Context context) {
         this.conversations = conversations;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public user_conversation_fetch_adapter.MyViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from ( context ).inflate(R.layout.converstaion_layout, parent,false);
+    public conversations_fetch_adapter.MyViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from ( context ).inflate( R.layout.converstaion_layout, parent,false);
         return new MyViewholder ( view );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull user_conversation_fetch_adapter.MyViewholder holder, int position) {
+    public void onBindViewHolder(@NonNull conversations_fetch_adapter.MyViewholder holder, int position) {
         try {
             holder.bind ( conversations.get ( position ) );
         } catch (JSONException e) {
@@ -106,15 +108,15 @@ public class user_conversation_fetch_adapter extends RecyclerView.Adapter<user_c
                 if(conversation.getConversationType ().equals ( CometChatConstants.CONVERSATION_TYPE_USER )){
                     User user = (User) conversation.getConversationWith ();
                     if(user.getUid ().equals ( context.getString( R.string.chatgpt) )){
-                        context.startActivity ( oneoone_chatgpt.start (context,user));
+                        context.startActivity ( gpt_chat_interface.start (context,user));
                     }
                     else{
-                        context.startActivity ( oneoone_chat.start ( context, user ) );
+                        context.startActivity ( one_on_one_chat_interface.start ( context, user ) );
                     }
                 }
                 else{
                     Group grp = (Group) conversation.getConversationWith ();
-                    chatActivity.start(context,grp.getGuid (), grp );
+                    chat_screen.start(context,grp.getGuid (), grp );
                 }
             } );
         }
